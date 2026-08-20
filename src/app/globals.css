@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   Tokens NETENG — cores extraídas da apresentação institucional 2026
+   ════════════════════════════════════════════════════════════════ */
+:root {
+  color-scheme: light;
+  --header-offset: 80px;
+
+  /* Marca — vermelho do "N" da logo (#d83f40).
+     O vermelho puro fica em 4.46:1 sobre branco e 4.16:1 sobre o grafite: passa em
+     texto grande, reprova em texto pequeno. Daí as duas variantes de texto —
+     `strong` para fundo claro, `light` para fundo escuro. O `--color-brand` puro
+     fica para preenchimento, réguas, ícones e elementos decorativos. */
+  --color-brand: #d83f40;
+  --color-brand-strong: #bd3234;
+  --color-brand-light: #ef6b6b;
+  --color-brand-hover: #a72b2d;
+  --color-brand-deep: #8e2426;
+  --color-brand-soft: #f4caca;
+  --color-brand-tint: #fdf3f3;
+
+  /* Grafite (fundo escuro institucional).
+     As variantes com alpha são tokens próprios porque o Tailwind 3 NÃO consegue
+     aplicar o modificador de opacidade (`bg-[var(--x)]/85`) sobre um var() que
+     carrega um hex — ele descarta a regra em silêncio. Sempre usar estes tokens
+     em gradiente/overlay, nunca `[var(--color-ink)]/NN`. */
+  --ink-rgb: 16 19 23;
+  --color-ink: rgb(var(--ink-rgb));
+  --color-ink-a40: rgb(var(--ink-rgb) / 0.4);
+  --color-ink-a80: rgb(var(--ink-rgb) / 0.8);
+  --color-ink-a85: rgb(var(--ink-rgb) / 0.85);
+  --color-ink-a90: rgb(var(--ink-rgb) / 0.9);
+  --color-ink-a95: rgb(var(--ink-rgb) / 0.95);
+  --color-ink-soft: #1a1f26;
+  --color-ink-line: #2a313a;
+
+  /* Superfícies claras */
+  --color-surface: #ffffff;
+  --color-surface-alt: #f7f8fa;
+
+  /* Texto */
+  --color-text-1: #101317;
+  --color-text-2: #4b5563;
+  --color-text-3: #9aa3af;
+
+  --color-border: #e5e7eb;
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-text-1);
+  font-family: var(--font-open-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-montserrat), var(--font-open-sans), sans-serif;
+  letter-spacing: -0.015em;
+}
+
+/* Foco visível consistente em toda a navegação por teclado. */
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-content px-[5%];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--color-brand-strong)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.06em] text-white transition-colors hover:bg-[var(--color-brand-hover)];
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-white/25 px-6 py-3 text-sm font-semibold uppercase tracking-[0.06em] text-white transition-colors hover:border-[var(--color-brand-light)] hover:text-[var(--color-brand-light)];
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-[var(--color-border)] px-6 py-3 text-sm font-semibold uppercase tracking-[0.06em] text-[var(--color-text-1)] transition-colors hover:border-[var(--color-brand)] hover:text-[var(--color-brand-strong)];
+  }
+
+  /* Régua curta da marca sob os títulos de seção. */
+  .brand-rule {
+    @apply block h-1 w-14 rounded bg-[var(--color-brand)];
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
